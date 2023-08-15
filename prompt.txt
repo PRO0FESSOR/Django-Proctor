@@ -1,0 +1,244 @@
+hello my friend now your task is to asct like a django python develeoper who knows how to connect and fetch data from mysql 
+
+Function 1 ->
+
+def getFromToDT():
+    query2 = "SELECT fromDT as fDT, toDT as tDT FROM tbldtspan;"
+    with connection.cursor() as cursor:
+        cursor.execute(query2)
+        single_value = cursor.fetchone()
+        return single_value
+
+Above function will give this --> ('2023-07-13 00:00:01', '2023-07-13 23:59:59')
+basiclly it provides the date and timing okay 
+
+Let me clearify your doubt i have a date variable which stores updated date okay , whenever i update date using my functionality it stores the value in date 
+so function will look like this 
+def updateSelectedDate(date): // hope you understand 
+what i want is to update this output ('2023-07-13 00:00:01', '2023-07-13 23:59:59') and want to replace the date in output with the date i updated okay 
+
+here are queries to do that ;
+FROM_DT_TOBEUPDATED = date+" "+getFromToDT().fDt;
+TO_DT_TOBEUPDATED = date+" "+getFromToDT().tDt;
+
+query5=f"UPDATE tbldtspan SET fromDT = '{FROM_DT_TOBEUPDATED}';"
+query6=f"UPDATE tbldtspan SET toDT = '{TO_DT_TOBEUPDATED}';"
+
+in the above line first two lines are adding time to the updated date and then query 5 and query 6 update the data in data base 
+
+SO WHAT IS YOUR TASK :
+use this function getFromToDT() and split the existed timing form the output ('2023-07-13 00:00:01', '2023-07-13 23:59:59') and
+store it in a variable then tell me how can i get those variables of fromtime and totime in my update funtion updateSelectedDate(date): so that i can use it 
+on the place of .fDt and .tDt 
+
+write the complete code 
+
+
+
+{% block date %}
+    <form class="row my-4" action={% url 'home' %} method="POST">
+      {% csrf_token %}
+        {% comment %} <label for="date"  class="col-1 col-form-label">Date</label> {% endcomment %}
+        <div class="col-2">
+          <div class="input-group date" id="datepicker">
+            <input type="text" class="form-control" id="date" placeholder={{data1}} name="currdate" />
+            <span class="input-group-append">
+              <span class="input-group-text bg-light d-block">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </span>
+          </div>
+          <input type="submit" value="&#9755;">
+        </div>
+    </form>
+    {% endblock date %}
+
+
+
+
+code 
+
+<!-- Your toggle element -->
+<input type="checkbox" id="toggle-switch">
+<label for="toggle-switch">Toggle</label>
+
+<!-- JavaScript to handle the toggle and send data to the backend -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleSwitch = document.getElementById('toggle-switch');
+
+    toggleSwitch.addEventListener('change', function() {
+      const isChecked = this.checked;
+
+      fetch('/api/toggle/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: 'is_checked=' + isChecked,
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response if needed
+        })
+        .catch(error => {
+          // Handle errors if needed
+        });
+    });
+  });
+</script>
+
+
+path('api/toggle/', views.toggle_view, name='toggle_view'),
+
+
+
+
+Hey buddy i want you to act like a django expert who knows dynamic rendring using html css js , templating very well . 
+
+so here is my toggle block in home.html where i am using bootstrap to implement toogle button and html for submit button .
+
+{% block toggle %}
+<div class="col-sm-4">
+  <form action={% url 'home' %} method="POST" id="myForm">
+    {% csrf_token %}
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="toggler" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">Working Hours</label>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+{% endblock toggle %}
+
+Here is my views.py home function which is used to render components on home .
+
+def home(request):
+    toggle_value = ""
+    if request.method == 'POST':
+        toogle_value = request.POST.get('toggler')
+        print(toggle_value)
+        # toggleSwitchStatus(toggle_value) 
+
+Using this i want to know what i am getting when i click on toggle button is it on or off okay ,
+the problems im facing is 1) after submitting page relods and automatically set for checked , so it never sets to off 
+2) after submitting im only getting empty string not on or off 
+
+please analyze the code carefully and solve this problem 
+
+
+
+
+Hello buddy , now you have to act like an expert in django , python , one who is proficient in handling databases like mysql 
+I am working in an organization as a backend developer , they are monitoring their employees very strictly so my task is to create 
+a web app for them which renders the employee data so that admin can see that , let me tell you how they are monitoring their employees
+with the help of their company software they track the data of each 10 seconds and alalyze the employee is productive , unproductive 
+, idle in thaat 10 seconds so the complete data of a day can be filtered in 24 hrs or working hrs time , first 10 sec entry of the day 
+concluded as login time and last entry is logout time ,
+
+i have a function in my queries.py 
+
+def getFromToDT():
+    query2 = "SELECT fromDT as fDT, toDT as tDT FROM tbldtspan;"
+    with connection.cursor() as cursor:
+        cursor.execute(query2)
+        single_value = cursor.fetchone()
+        return single_value
+
+this function getFromToDT provides output as ('2023-07-13 00:00:01', '2023-07-13 23:59:59') basically the date and timing 
+either 24hrs or working hrs , this timing can be switched by adming , as of now focus on this function 
+
+here is my getglancevalue function
+
+def getGlanceValues():
+    getFromToDT
+	emparray1=SELECT COUNT(*) as cnt FROM tblproworkingdetails WHERE USER_ID='USER_ID' AND SYNC_TIME>'FROM_DATE' AND SYNC_TIME<'TO_DATE' GROUP BY RES1 ORDER BY RES1 ASC;
+	
+	idleCount=emparray1[0][cnt];
+	proCount=emparray1[1][cnt];
+	unproCount=emparray1[2][cnt];
+	
+	idleTime=convertCountToTime(idleCount);
+	proTime=convertCountToTime(proCount);
+	unproTime=convertCountToTime(unproCount);
+  
+
+basically this function will give me data of user , 
+here user id is a particular id of a employee 
+userids : -
+AISHWARYA_BACCHE   |
+| AISHWARYA_GADGE    |
+| AJAY_APSHETTI      |
+| AKSHATA_LOTEKAR    |
+| ANIRUDHA_CHAULKAR  |
+| CHETAN_GORI        |
+| GAURAV_PATHWARDHAN |
+| MANISHA_KALE       |
+| MRINAL_SHRIVASTAVA |
+| NIMESH_RADIA       |
+| PARMESHWAR_KALE    |
+| POORVI_PATIL       |
+| PRATHAMESH_PATEL   |
+| PRIYANKA_HARATKAR  |
+| RAHUL_KANOJIYA     |
+| RAJ_RAMTEKKAR      |
+| ROSHAN_KAKADE      |
+| SAMIR_WARANG       |
+| SHREYA_PATIL       |
+| SHUBHAM_OMASE      |
+| SHUBHAM_PARAKH     |
+| SUDHANSHU_KASHYAP  |
+| TEJASWINI_SORTE    |
+| GAYATRI_PAWAR
+
+it get some values from getFromToDT and used that values on the place of from date and to date to sync date and time 
+to fetch data it counts ide , pro and unpro from all the entries i discussed previously , and then pass the counts in function 
+convert_count_to_time.
+
+def convert_count_to_time(time_count):
+		time_sec = time_count * 10
+		time_h_mod = int(time_sec // 3600)
+		time_m_mod = int((time_sec - (time_h_mod * 3600)) // 60)
+		time_s_mod = int(time_sec - (time_h_mod * 3600) - (time_m_mod * 60))
+
+		if time_h_mod < 10:
+			time_h_mod = "0" + str(time_h_mod)
+		if time_m_mod < 10:
+			time_m_mod = "0" + str(time_m_mod)
+		if time_s_mod < 10:
+			time_s_mod = "0" + str(time_s_mod)
+
+		return f"{time_h_mod}:{time_m_mod}:{time_s_mod} (H)"
+
+
+now your task is to analyze my prompt carefully and write proper functions to achieve what i want , fetch the data and render it in a template 
+in this way 
+Productive Time :
+
+UnProductive Time :
+
+Idle Time :
+
+Login Time :
+
+Logout Time :
+ 
+in above template structure i want the data as in hrs for ex  04:45:10(H)
+
+use all the three funtions in query.py the help me to code this 
+
+
+
+
+ SYNC_TIME     | datetime     | NO   |     | NULL    |       |
+| USER_ID       | varchar(150) | NO   |     | NULL    |       |
+| PRO_TYPE      | varchar(150) | NO   |     | NULL    |       |
+| PROCESS_NAME  | varchar(150) | NO   |     | NULL    |       |
+| PROCESS_TITLE | varchar(150) | NO   |     | NULL    |       |
+| PRO_UNPRO     | varchar(150) | NO   |     | NULL    |       |
+| ACTIVE_IDLE   | varchar(150) | NO   |     | NULL    |       |
+| RES1          | varchar(150) | NO   |     | NULL    |       |
+| RES2          | varchar(150) | NO   |     | NULL    |       |
+| RES3          | varchar(150) | NO   |     | NULL    |       |
+| RES4
