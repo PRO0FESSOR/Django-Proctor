@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="d-flex bd-highlight">
+        <div class="p-2 flex-grow-1 bd-highlight">
+            <a href={% url 'home' %} ><img src="{% static 'core/image/logo.png' %}" alt="error"></a>
+        </div>
+        <div class="p-2 bd-highlight">
+            <a href={% url 'login' %} class="btn btn-primary">LOG-IN</a>
+        </div>
+        <div class="p-2 bd-highlight">
+            <button type="button" class="btn btn-primary">LOG-OUT</button>
+        </div>
+      </div>
+</body>
+</html>
