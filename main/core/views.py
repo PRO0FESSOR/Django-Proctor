@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate,login,logout
 from .forms import  LoginForm
 from django.db import connection
 from .query import getSelectedDate , updateSelectedDate , getFromToDT , getSwitchStatus , toggleSwitchStatus,convertCountToTime,getGlanceValues
-import plotly.graph_objects as go
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
@@ -30,10 +29,6 @@ def login(request):
 #home 
     
 def home(request):
-    name=""
-    protime=""
-    unprotime=""
-    idletime=""
     toggle_value = ""
     datecurr=getSelectedDate()
     if request.method == 'POST':
@@ -50,30 +45,7 @@ def home(request):
         if datecurr:
             updateSelectedDate(datecurr)
             
-        toggleSwitchStatus(toggle_value)
-
-        
-        
-        
-        # print(convert_count_to_time(400))
-        
+        toggleSwitchStatus(toggle_value)       
    
     return render(request,'core/home.html',{"data2":getFromToDT(),"data1":getSelectedDate(),"data3":getSwitchStatus(),"toggle_value":toggle_value,"data4":getGlanceValues()})
 
-#toggle view
-
-# @csrf_exempt
-# def toggle_view(request):
-#     global is_checked
-#     if request.method == 'POST':
-#         is_checked = request.POST.get('is_checked')
-#         checked = ""
-#         if is_checked=="true":
-#             checked="ON"
-#         else:
-#             checked="OFF"        
-#         toggleSwitchStatus(checked)
-
-
-#         print(f"Toggle state: {checked}")
-#         return HttpResponseRedirect(reverse('home'))
